@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Stack;
 
 public class CalculatorImplementation extends UnicastRemoteObject implements Calculator {
+    //Creating clientstack
     private Map<String, Stack<Integer>> clientStacks;
 
     public CalculatorImplementation() throws RemoteException {
