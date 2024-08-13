@@ -20,13 +20,13 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
 
     @Override
     public void pushValue(String clientId, int val) throws RemoteException {
-        ensureClientStackExists(clientId);
+        cl_stack_check(clientId);
         clientStacks.get(clientId).push(val);
     }
 
     @Override
     public void pushOperation(String clientId, String operator) throws RemoteException {
-        ensureClientStackExists(clientId);
+        cl_stack_check(clientId);
         Stack<Integer> stack = clientStacks.get(clientId);
         if (stack.isEmpty()) {
             throw new RemoteException("Stack is empty for client " + clientId);
@@ -72,7 +72,7 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
 
     @Override
     public boolean isEmpty(String clientId) throws RemoteException {
-        ensureClientStackExists(clientId);
+        cl_stack_check(clientId);
         return clientStacks.get(clientId).isEmpty();
     }
 
@@ -86,7 +86,7 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
         return pop(clientId);
     }
     //Check if there is a seprates stack for each client 
-    private void ensureClientStackExists(String clientId) throws RemoteException {
+    private void cl_stack_check(String clientId) throws RemoteException {
         if (!clientStacks.containsKey(clientId)) {
             throw new RemoteException("Client stack does not exist for " + clientId);
         }
